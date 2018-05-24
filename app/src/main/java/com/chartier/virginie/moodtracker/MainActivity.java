@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     // Declare all components
-    private void configureWidgets(){
+    private void configureWidgets() {
         mComment = findViewById(R.id.main_activity_comment);
         mHistory = findViewById(R.id.main_activity_history);
         mSmiley = findViewById(R.id.main_activity_img);
