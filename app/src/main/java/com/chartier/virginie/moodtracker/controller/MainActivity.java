@@ -14,32 +14,26 @@ import android.view.animation.Animation;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
+
 import com.chartier.virginie.moodtracker.R;
 import com.chartier.virginie.moodtracker.view.OnSwipeTouchListener;
 
+import static com.chartier.virginie.moodtracker.utils.Constants.BUNDLE_REQUEST_CODE;
+import static com.chartier.virginie.moodtracker.utils.Constants.LIST_COLOR_IMG;
 
 public class MainActivity extends AppCompatActivity {
 
+    // FOR DESIGN
     private ImageButton mComment;
     private ImageButton mHistory;
     private ImageView mSmiley;
     private ConstraintLayout mBackground;
     private ImageView mArrowUp;
     private ImageView mArrowDown;
-    private String comment;
     private View swipeView;
-    private int[][] LIST_COLOR_IMG = {
-            {R.color.faded_red,
-                    R.color.warm_grey,
-                    R.color.cornflower_blue_65,
-                    R.color.light_sage,
-                    R.color.banana_yellow},
-            {R.drawable.smiley_sad,
-                    R.drawable.smiley_disappointed,
-                    R.drawable.smiley_normal,
-                    R.drawable.smiley_happy,
-                    R.drawable.smiley_super_happy}};
+
+    // FOR DATA
+    private String comment;
     private int indexMood = 3;
     private AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
     private MediaPlayer mp;
@@ -115,8 +109,8 @@ public class MainActivity extends AppCompatActivity {
         mHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mIntent = new Intent(MainActivity.this, HistoryActivity.class);
-                startActivity(mIntent);
+                Intent historyActivity = new Intent(MainActivity.this, HistoryActivity.class);
+                startActivityForResult(historyActivity, BUNDLE_REQUEST_CODE);
             }
         });
     }
@@ -131,8 +125,8 @@ public class MainActivity extends AppCompatActivity {
                 mBackground.setBackgroundColor(getResources().getColor(LIST_COLOR_IMG[0][indexMood]));
                 mArrowDown.setVisibility(View.GONE);
                 mArrowUp.setVisibility(View.GONE);
+                setEmptyComment();
                 if (indexMood < 4){
-                    Toast.makeText(MainActivity.this, "Down", Toast.LENGTH_SHORT).show();
                     getSound(R.raw.sound_unhappy);
                     mArrowDown.clearAnimation();
                     mArrowUp.clearAnimation();
@@ -154,8 +148,8 @@ public class MainActivity extends AppCompatActivity {
                 mBackground.setBackgroundColor(getResources().getColor(LIST_COLOR_IMG[0][indexMood]));
                 mArrowDown.setVisibility(View.GONE);
                 mArrowUp.setVisibility(View.GONE);
+                setEmptyComment();
                 if (indexMood > 0){
-                    Toast.makeText(MainActivity.this, "Up", Toast.LENGTH_SHORT).show();
                     getSound(R.raw.sound_happy);
                     mArrowDown.clearAnimation();
                     mArrowUp.clearAnimation();
@@ -176,5 +170,11 @@ public class MainActivity extends AppCompatActivity {
     private void getSound(int sound) {
         mp = MediaPlayer.create(this, sound);
         mp.start();
+    }
+
+
+    // This method reset the comment every time the user swipe.
+    public void setEmptyComment() {
+        comment = "";
     }
 }
