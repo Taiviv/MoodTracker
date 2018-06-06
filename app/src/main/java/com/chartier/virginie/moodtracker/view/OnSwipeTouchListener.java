@@ -8,6 +8,8 @@ import android.view.View;
 /**
  * Created by Virginie Chartier alias Taiviv on 28/05/2018.
  */
+
+// This class manages the swipe gestures
 public class OnSwipeTouchListener implements View.OnTouchListener {
 
     private GestureDetector gestureDetector;
