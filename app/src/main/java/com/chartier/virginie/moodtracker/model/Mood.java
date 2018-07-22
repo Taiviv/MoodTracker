@@ -1,5 +1,7 @@
 package com.chartier.virginie.moodtracker.model;
 
+import java.util.Date;
+
 /**
  * Created by Virginie Chartier alias Taiviv on 29/05/2018.
  */
@@ -12,51 +14,53 @@ package com.chartier.virginie.moodtracker.model;
  * */
 public class Mood {
 
-    private int mColor;
-    private int mSmileyValue;
+    public static int ID_MOOD_HAPPY = 0;
+    public static int ID_MOOD_SUPER_HAPPY = 1;
+    public static int ID_MOOD_NORMAL = 2;
+    public static int ID_MOOD_SAD = 3;
+    public static int ID_MOOD_SUPER_SAD = 4;
+
+
+    private int moodId;
+    private Date mDate;
     private String mComment;
-    private int mIconComment;
-    private String mDate;
 
 
-    public Mood(int color, int smileyValue, String comment, int iconComment, String date) {
-        mColor = color;
-        mSmileyValue = smileyValue;
-        mComment = comment;
-        mIconComment = iconComment;
-        mDate = date;
+
+    public Mood(int moodId, Date mDate, String mComment) {
+        this.moodId = moodId;
+        this.mDate = mDate;
+        this.mComment = mComment;
+
     }
 
 
-    public int getColor() {
-        return mColor;
+    public int getMoodId() {
+        return moodId;
     }
 
-    public int getSmileyValue() {
-        return mSmileyValue;
+
+    public void setMoodId(int moodId) {
+        this.moodId = moodId;
     }
 
-    public String getComment() {
+
+    public Date getmDate () {
+        return mDate;
+    }
+
+    public void setmDate(Date mDate) {
+        this.mDate = mDate;
+    }
+
+
+    public String getmComment() {
         return mComment;
     }
 
-    public int getIconComment() {
-        return mIconComment;
-    }
 
-
-    /*This method is using a trick to update the "date value"
-     * We get the item position into the value and we return the string of this position
-     * */
-    public String getDate(int value) {
-        String dayTab[] = {"Hier", "Avant-hier",
-                "trois jours", "quatre jours", "cinq jours", "six jours", "une semaine"};
-        mDate = dayTab[value];
-
-        if (value >= 2)
-            return "Il y a " + mDate;
-
-        return mDate;
+    public void setmComment(String mComment) {
+        this.mComment = mComment;
     }
 }
 

@@ -1,46 +1,53 @@
 package com.chartier.virginie.moodtracker.model;
 
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.chartier.virginie.moodtracker.utils.Constants;
 
-import java.lang.reflect.Type;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
-
-import static android.content.Context.MODE_PRIVATE;
 
 
 /**
  * Created by Virginie Chartier alias Taiviv on 29/05/2018.
  */
+
 public class MoodData {
-
-    //Constants for shared preferences
-    private static final String SHARED_PREFERENCES = "SHARED_PREFERENCES";
-    private static final String MOOD_DATA = "MOOD_DATA";
-
-    //This method allow to save array in shared preferences using Gson library
-    public static void saveData(Context context, ArrayList<Mood> mMoods) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(mMoods);
-        editor.putString(MOOD_DATA, json);
-        editor.apply();
-    }
+    /**
+     * ---Au swipe de l'utilisateur---
+     * enregister une humeur (notre objet Mood aura les variables suivantes de paramétrer à savoir int moodID et Date mDate. la variable commentaire sera égal a null):
+     * si aucune humeur existe pour le jour d'aujourd'hui alors j'enregistre normalement mon humeur
+     * si une humeur existe pour le jour d'aujourd'hui alors j'enregistre la nouvelle humeur
+     *
+     * ---A l'enregistrement d'un commentaire---
+     * on enregistre une humeur , la date du jour et le commentaire (notre objet Mood aura toutes ces variables paramétrées)
+     * si aucune humeur existe pour le jour d'aujourd'hui alors j'enregistre normalement mon humeur
+     * si une humeur existe pour le jour d'aujourd'hui alors j'enregistre la nouvelle humeur
+     */
 
 
-    //This method allow to load array from shared preferences using Gson library
-    public static ArrayList<Mood> loadData(Context activity) {
-        SharedPreferences sharedPreferences = activity.getSharedPreferences(SHARED_PREFERENCES, MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString(MOOD_DATA, null);
-        Type type = new TypeToken<ArrayList<Mood>>() {
-        }.getType();
-        ArrayList<Mood> mMoods = gson.fromJson(json, type);
-        return mMoods != null ? mMoods : new ArrayList<Mood>();
+    // This method save a mood and a comment if the user validate a comment or save a mood without comment after a swipe
+    public static void createAndSaveMood(int moodId, String comment, Context context) {
+        ArrayList<Mood> savedMoods = MoodPreferences.loadData(context);
+        String dateString = Constants.formatter.format(new Date());
+        Date date = null;
+        try {
+            date = Constants.formatter.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Log.e("TAG", "l'humeur pour la date "+ dateString +" contient (ou pas) le message "+comment+" et l'id "+moodId);
+        if (!savedMoods.isEmpty()) {
+            for (Mood mood : savedMoods) {
+                if (mood.getmDate().equals(date)){
+                    savedMoods.remove(mood);
+                }
+            }
+        }
+        savedMoods.add(new Mood(moodId, date, comment));
+        MoodPreferences.saveData(context, savedMoods);
     }
 }
