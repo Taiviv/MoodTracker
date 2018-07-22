@@ -3,4 +3,10 @@
     <string name="smiley_icon">smiley</string>
     <string name="comment_icon">comment icon</string>
     <string name="toast_text">toast</string>
+
+    <string name="history_date_week">Il y a une semaine</string>
+    <string name="history_date_days">Il y a $1%d jours</string>
+    <string name="history_date_two_days">Avant-hier</string>
+    <string name="history_date_yesterday">Hier</string>
+    <string name="history_date_today">Aujourd\'hui</string>
 </resources>
