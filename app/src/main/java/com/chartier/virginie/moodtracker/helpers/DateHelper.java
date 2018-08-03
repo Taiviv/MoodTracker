@@ -9,11 +9,14 @@ import java.util.Date;
 
 
 //This class groups methods of date manipulation
-public class DateHelper {
+public final class DateHelper {
 
-    /* These two methods calculate the differences of days: finally there is only the first one which interests us the second
-     * serves just to the separation of the code, one creates a method to which one passes 2 dates and
-     * which returns us an integer corresponding to the numbers days between these two dates.
+    private DateHelper(){ }
+
+    /* These three methods calculate the differences of days: finally there is only the first one which
+     * interests us the second and the third serves just to the separation of the code,
+     * one creates a method to which one passes 2 dates and which returns us an integer corresponding
+     * to the numbers days between these two dates.
      */
     public static int daysBetween(Date startDate, Date endDate) {
         Calendar sDate = getDateCalendar(startDate);
@@ -27,13 +30,24 @@ public class DateHelper {
         return daysBetween;
     }
 
-    private static Calendar getDateCalendar(Date date) {
+    public static Calendar getDateCalendar(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
+        return cal;
+    }
+
+    public static Calendar getDateCalendarWithoutDays(int days) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        cal.add(Calendar.DATE, -days);
         return cal;
     }
 }
