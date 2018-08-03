@@ -16,6 +16,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.chartier.virginie.moodtracker.R;
+
+import com.chartier.virginie.moodtracker.model.MoodData;
 import com.chartier.virginie.moodtracker.view.OnSwipeTouchListener;
 
 import static com.chartier.virginie.moodtracker.utils.Constants.BUNDLE_REQUEST_CODE;
@@ -33,10 +35,10 @@ public class MainActivity extends AppCompatActivity {
     private View swipeView;
 
     // FOR DATA
-    private String comment;
     private int indexMood = 3;
-    private AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+    private AlphaAnimation anim;
     private MediaPlayer mp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         this.configureCommentButtonOnClick();
         this.configureHistoryButtonOnClick();
         this.configureSwipeView();
+        this.startAnimation();
     }
 
 
@@ -87,8 +90,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //registration of comment if the user writes one
-                        comment = edittext.getText().toString();
-                        Log.e("Tag", "le contenu de mon commentaire est : " + comment);
+                        MoodData.createAndSaveMood(indexMood, edittext.getText().toString(), MainActivity.this);
+                        Log.e("Tag", "le contenu de mon commentaire est : " + edittext.getText().toString());
                         dialog.dismiss();
                     }
                 });
@@ -115,56 +118,58 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
+    // This method configure the swipe
     private void configureSwipeView(){
         swipeView.setOnTouchListener(new OnSwipeTouchListener(this) {
             @Override
             public void onSwipeDown() {
-                indexMood--;
-                mSmiley.setImageResource(LIST_COLOR_IMG[1][indexMood]);
-                mBackground.setBackgroundColor(getResources().getColor(LIST_COLOR_IMG[0][indexMood]));
-                mArrowDown.setVisibility(View.GONE);
-                mArrowUp.setVisibility(View.GONE);
-                setEmptyComment();
-                if (indexMood < 4){
-                    getSound(R.raw.sound_unhappy);
-                    mArrowDown.clearAnimation();
-                    mArrowUp.clearAnimation();
-                    if (indexMood==0){
-                        mArrowUp.setVisibility(View.GONE);
-                        anim.setDuration(500); // Blink management with this parameter
-                        anim.setStartOffset(20);
-                        anim.setRepeatMode(Animation.REVERSE);
-                        anim.setRepeatCount(Animation.INFINITE);
-                        mArrowDown.startAnimation(anim);
-                    }
-                }
+                updateDesign(false);
+                MoodData.createAndSaveMood(indexMood, null, MainActivity.this);
             }
 
             @Override
             public void onSwipeUp() {
-                indexMood++;
-                mSmiley.setImageResource(LIST_COLOR_IMG[1][indexMood]);
-                mBackground.setBackgroundColor(getResources().getColor(LIST_COLOR_IMG[0][indexMood]));
-                mArrowDown.setVisibility(View.GONE);
-                mArrowUp.setVisibility(View.GONE);
-                setEmptyComment();
-                if (indexMood > 0){
-                    getSound(R.raw.sound_happy);
-                    mArrowDown.clearAnimation();
-                    mArrowUp.clearAnimation();
-                    if (indexMood ==4){
-                        mArrowDown.setVisibility(View.GONE);
-                        anim.setDuration(500); // Blink management with this parameter
-                        anim.setStartOffset(20);
-                        anim.setRepeatMode(Animation.REVERSE);
-                        anim.setRepeatCount(Animation.INFINITE);
-                        mArrowUp.startAnimation(anim);
-                    }
-                }
+                updateDesign(true);
+                MoodData.createAndSaveMood(indexMood, null, MainActivity.this);
             }
+
         });
     }
+
+
+    // This method configure the update design
+    private void updateDesign(boolean isUp){
+        Integer maxIndex = isUp ? 0 : 4;
+
+        if(isUp){
+            indexMood++;
+            getSound(R.raw.sound_happy);
+            if(indexMood >= maxIndex)showArrow(mArrowDown , maxIndex , mArrowUp);
+        }
+        else{
+            indexMood--;
+            getSound(R.raw.sound_unhappy);
+            if(indexMood <= maxIndex)showArrow(mArrowUp , maxIndex , mArrowDown);
+
+        }
+
+        mSmiley.setImageResource(LIST_COLOR_IMG[1][indexMood]);
+        mBackground.setBackgroundColor(getResources().getColor(LIST_COLOR_IMG[0][indexMood]));
+    }
+
+
+    // This method manage animation of arrows
+    private void showArrow(ImageView arrow, int maxIndex, ImageView oppositeArrow){
+        arrow.clearAnimation();
+        oppositeArrow.clearAnimation();
+        arrow.setVisibility(View.GONE);
+        oppositeArrow.setVisibility(View.GONE);
+        if (indexMood == maxIndex){
+            arrow.setVisibility(View.VISIBLE);
+            arrow.startAnimation(anim);
+        }
+    }
+
 
     //Allow to add sound or music from raw folder in app by using MediaPlayer
     private void getSound(int sound) {
@@ -172,9 +177,12 @@ public class MainActivity extends AppCompatActivity {
         mp.start();
     }
 
-
-    // This method reset the comment every time the user swipe.
-    public void setEmptyComment() {
-        comment = "";
+    //This method configure AlphaAnimation
+    private void startAnimation(){
+        this.anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(500); // Blink management with this parameter
+        anim.setStartOffset(20);
+        anim.setRepeatMode(Animation.REVERSE);
+        anim.setRepeatCount(Animation.INFINITE);
     }
 }
