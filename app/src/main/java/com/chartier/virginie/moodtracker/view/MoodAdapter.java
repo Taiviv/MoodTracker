@@ -16,6 +16,9 @@ import com.chartier.virginie.moodtracker.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import static com.chartier.virginie.moodtracker.utils.Constants.NUMBER_ITEM;
 
 
 /**
@@ -25,27 +28,25 @@ import java.util.Date;
 public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.ViewHolder> {
 
 
-    private ArrayList<Mood> mMoods;
+    private List<Mood> mMoods;
     private OnItemClickListener mListener;
     private Context mContext;
 
-    // constructor used in the buildRecyclerView method
-    public MoodAdapter(ArrayList<Mood> moods, Context context, OnItemClickListener listener) {
+    public MoodAdapter(List<Mood> moods, Context context, OnItemClickListener listener) {
         mMoods = moods;
         mContext = context;
         mListener = listener;
     }
 
-    /* Replace the methods of the class RecyclerView
-     * This is the heart of the adapter.
-     */
     @Override
     public MoodAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.history_items, parent, false);
+        //Each sub layout height is adapting with the parent (device height) we divide the screen by seven (nbr of day in week)
+        view.getLayoutParams().height = parent.getHeight() / 7;
+
         return new MoodAdapter.ViewHolder(view);
     }
 
-    //This methods manages the content and position of each element
     @Override
     public void onBindViewHolder(@NonNull MoodAdapter.ViewHolder holder, final int position) {
         holder.setIsRecyclable(false);
@@ -62,6 +63,9 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
+        //This allow to keep only 7 items on the screen and then remove the older one when limit is reached
+        if (mMoods.size() == NUMBER_ITEM)
+            mMoods.remove(0);
         return mMoods.size();
     }
 
@@ -76,7 +80,6 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        // Declare all components
         public TextView mTextView;
         public ImageView mImageViewMood;
         public ImageView mImageViewComment;
@@ -89,12 +92,6 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.ViewHolder> {
         }
     }
 
-
-    /* This method formats with the day difference calculation
-     * There we see that we do the calculation of days and then in the switch we return following this gap the string that corresponds,
-     * with a default that returns the date if it is beyond a week.
-     * If you want to add cases, just continue the switch ex: box 8 would return a string "8 days ago"
-     */
     private String getDateText(Mood mood) {
         int nbDaysBeetween = DateHelper.daysBetween(mood.getmDate(), new Date());
         switch (nbDaysBeetween) {
