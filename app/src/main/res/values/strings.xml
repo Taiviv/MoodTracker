@@ -5,7 +5,10 @@
     <string name="toast_text">toast</string>
 
     <string name="history_date_week">Il y a une semaine</string>
-    <string name="history_date_days">Il y a %1$d jours</string>
+    <string name="history_date_six_days">Il y a six jours</string>
+    <string name="history_date_five_days">Il y a cinq jours</string>
+    <string name="history_date_four_days">Il y a quatre jours</string>
+    <string name="history_date_three_days">Il y a trois jours</string>
     <string name="history_date_two_days">Avant-hier</string>
     <string name="history_date_yesterday">Hier</string>
     <string name="history_date_today">Aujourd\'hui</string>
