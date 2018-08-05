@@ -10,6 +10,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -30,8 +31,8 @@ public class MoodData {
      * si aucune humeur existe pour le jour d'aujourd'hui alors j'enregistre normalement mon humeur
      * si une humeur existe pour le jour d'aujourd'hui alors j'enregistre la nouvelle humeur
      *
-     * --Humeur par default--
-     * si  l'utilisateur n'a pas enregistré une humeur alors une humeur par default sera enregistré
+     * --Humeur par défaut--
+     * si l'utilisateur n'a pas enregistré une humeur alors une humeur par défaut sera enregistré
      */
 
 
@@ -44,7 +45,7 @@ public class MoodData {
             date = Constants.formatter.parse(dateString);
         } catch (ParseException e) {
             e.printStackTrace();
-            Log.e("TAG", "Mince, une erreur s'est produite avec le formattage de la date :", e); // TODO : Modification de Philippe
+            Log.e("TAG", "Mince, une erreur s'est produite avec le formattage de la date :", e); // TODO : Modification
         }
         Log.e("TAG", "l'humeur pour la date "+ dateString +" contient (ou pas) le message "+comment+" et l'id "+moodId);
         if (!savedMoods.isEmpty()) {
@@ -72,7 +73,7 @@ public class MoodData {
                 }
             }
             if(!found) {
-                weekList.add(new Mood(2, DateHelper.getDateCalendarWithoutDays(i).getTime(), ""));
+                weekList.add(new Mood(2, DateHelper.getDateCalendarWithoutDays(i).getTime(), null));
             }
         }
         return weekList;
