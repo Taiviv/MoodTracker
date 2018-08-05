@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.chartier.virginie.moodtracker.R;
 import com.chartier.virginie.moodtracker.helpers.DateHelper;
 import com.chartier.virginie.moodtracker.model.Mood;
+import com.chartier.virginie.moodtracker.model.MoodData;
+import com.chartier.virginie.moodtracker.model.MoodPreferences;
 import com.chartier.virginie.moodtracker.utils.Constants;
 
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 import static com.chartier.virginie.moodtracker.utils.Constants.NUMBER_ITEM;
+import static com.chartier.virginie.moodtracker.utils.Constants.formatter;
 
 
 /**
@@ -59,6 +62,9 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.ViewHolder> {
                 mListener.onItemClick(mMoods.get(position));
             }
         });
+        // This handles the visibility of the comment icon
+        if (mMoods.get(position).getmComment() == null)
+            holder.mImageViewComment.setVisibility(View.GONE);
     }
 
     @Override
@@ -102,10 +108,13 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.ViewHolder> {
             case 2:
                 return mContext.getResources().getString(R.string.history_date_two_days);
             case 3:
+                return mContext.getResources().getString(R.string.history_date_three_days);
             case 4:
+                return mContext.getResources().getString(R.string.history_date_four_days);
             case 5:
+                return mContext.getResources().getString(R.string.history_date_five_days);
             case 6:
-                return mContext.getResources().getString(R.string.history_date_days, nbDaysBeetween);
+                return mContext.getResources().getString(R.string.history_date_six_days);
             case 7:
                 return mContext.getResources().getString(R.string.history_date_week);
             default:
