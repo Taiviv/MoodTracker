@@ -12,16 +12,11 @@ import android.widget.TextView;
 import com.chartier.virginie.moodtracker.R;
 import com.chartier.virginie.moodtracker.helpers.DateHelper;
 import com.chartier.virginie.moodtracker.model.Mood;
-import com.chartier.virginie.moodtracker.model.MoodData;
-import com.chartier.virginie.moodtracker.model.MoodPreferences;
 import com.chartier.virginie.moodtracker.utils.Constants;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.chartier.virginie.moodtracker.utils.Constants.NUMBER_ITEM;
-import static com.chartier.virginie.moodtracker.utils.Constants.formatter;
 
 
 /**
@@ -69,9 +64,6 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        //This allow to keep only 7 items on the screen and then remove the older one when limit is reached
-        if (mMoods.size() == NUMBER_ITEM)
-            mMoods.remove(0);
         return mMoods.size();
     }
 

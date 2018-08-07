@@ -27,5 +27,4 @@ public abstract class Constants {
                     R.drawable.smiley_normal,
                     R.drawable.smiley_happy,
                     R.drawable.smiley_super_happy}};
-    public static final int NUMBER_ITEM = 7;
 }
