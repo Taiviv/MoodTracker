@@ -64,7 +64,7 @@ public class MoodData {
     public static List<Mood> weekListMood(Context context) {
         ArrayList<Mood> weekList = new ArrayList<>();
         ArrayList<Mood> savedMoods = MoodPreferences.loadData(context);
-        for(int i=7; i >= 0; i--) {
+        for(int i=7; i > 0; i--) {
             boolean found = false;
             for(Mood mood : savedMoods) {
                 if (DateHelper.getDateCalendar(mood.getmDate()).getTime().equals(DateHelper.getDateCalendarWithoutDays(i).getTime())) {
