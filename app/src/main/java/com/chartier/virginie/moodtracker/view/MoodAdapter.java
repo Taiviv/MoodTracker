@@ -90,6 +90,10 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.ViewHolder> {
         }
     }
 
+    /* This method formats with the day difference calculation
+     * There we see that we do the calculation of days and then in the switch we return following this gap the string that corresponds,
+     * with a default that returns the date if it is beyond a week.
+     * */
     private String getDateText(Mood mood) {
         int nbDaysBeetween = DateHelper.daysBetween(mood.getmDate(), new Date());
         switch (nbDaysBeetween) {
