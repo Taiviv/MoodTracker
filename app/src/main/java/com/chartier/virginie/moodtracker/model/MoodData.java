@@ -20,20 +20,21 @@ import java.util.List;
  */
 
 public class MoodData {
-    /**
-     * ---Au swipe de l'utilisateur---
-     * enregister une humeur (notre objet Mood aura les variables suivantes de paramétrer à savoir int moodID et Date mDate. la variable commentaire sera égal a null):
-     * si aucune humeur existe pour le jour d'aujourd'hui alors j'enregistre normalement mon humeur
-     * si une humeur existe pour le jour d'aujourd'hui alors j'enregistre la nouvelle humeur
-     *
-     * ---A l'enregistrement d'un commentaire---
-     * on enregistre une humeur , la date du jour et le commentaire (notre objet Mood aura toutes ces variables paramétrées)
-     * si aucune humeur existe pour le jour d'aujourd'hui alors j'enregistre normalement mon humeur
-     * si une humeur existe pour le jour d'aujourd'hui alors j'enregistre la nouvelle humeur
-     *
-     * --Humeur par défaut--
-     * si l'utilisateur n'a pas enregistré une humeur alors une humeur par défaut sera enregistré
-     */
+
+/**
+ * --- At the swipe of the user ---
+ * we save a mood (our Mood object will have the following variables to set namely int moodID and Date mDate, the comment variable will be equal to null):
+ * if no mood exists for today's day then I normally save my mood
+ * if a mood exists for today's day then I save the new mood
+ *
+ * --- At the saving of a comment ---
+ * we save a mood, the date of the day and the comment (our object Mood will have all these variables set)
+ * if no mood exists for today's day then I normally save my mood
+ * if a mood exists for today's day then I save the new mood
+ *
+ * ---Default mood---
+ * if the user has not registered a mood then a default mood will be saved
+ */
 
 
     // This method save a mood and a comment if the user validate a comment or save a mood without comment after a swipe
@@ -45,7 +46,7 @@ public class MoodData {
             date = Constants.formatter.parse(dateString);
         } catch (ParseException e) {
             e.printStackTrace();
-            Log.e("TAG", "Mince, une erreur s'est produite avec le formattage de la date :", e); // TODO : Modification
+            Log.e("TAG", "Mince, une erreur s'est produite avec le formattage de la date :", e); // TODO : Modification de Philippe
         }
         Log.e("TAG", "l'humeur pour la date "+ dateString +" contient (ou pas) le message "+comment+" et l'id "+moodId);
         if (!savedMoods.isEmpty()) {
