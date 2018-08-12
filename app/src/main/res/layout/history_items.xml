@@ -21,23 +21,23 @@
         tools:text="date_time" />
 
     <ImageView
+        android:id="@+id/history_items_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="30dp"
+        android:background="@null"
+        android:contentDescription="@string/comment_icon"
+        android:src="@drawable/ic_comment_black_48px" />
+
+    <ImageView
         android:id="@+id/history_items_img"
         android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
+        android:layout_marginEnd="10dp"
         android:adjustViewBounds="true"
         android:background="@null"
-        tools:src="@drawable/smiley_happy"/>
-
-    <ImageView
-        android:id="@+id/history_items_comment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:background="@null"
-        android:layout_gravity="center_vertical"
-        android:contentDescription="@string/comment_icon"
-        android:src="@drawable/ic_comment_black_48px" />
+        tools:src="@drawable/smiley_happy" />
 
 </LinearLayout>
