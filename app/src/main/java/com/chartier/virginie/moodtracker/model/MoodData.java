@@ -6,11 +6,10 @@ import android.util.Log;
 import com.chartier.virginie.moodtracker.helpers.DateHelper;
 import com.chartier.virginie.moodtracker.utils.Constants;
 
-import java.text.DateFormat;
+
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -46,7 +45,7 @@ public class MoodData {
             date = Constants.formatter.parse(dateString);
         } catch (ParseException e) {
             e.printStackTrace();
-            Log.e("TAG", "Mince, une erreur s'est produite avec le formattage de la date :", e); // TODO : Modification de Philippe
+            Log.e("TAG", "Mince, une erreur s'est produite avec le formattage de la date :", e);
         }
         Log.e("TAG", "l'humeur pour la date "+ dateString +" contient (ou pas) le message "+comment+" et l'id "+moodId);
         if (!savedMoods.isEmpty()) {

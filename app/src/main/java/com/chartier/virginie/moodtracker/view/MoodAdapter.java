@@ -39,7 +39,7 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.ViewHolder> {
     @Override
     public MoodAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.history_items, parent, false);
-        //Each sub layout height is adapting with the parent (device height) we divide the screen by seven (nbr of day in week)
+        // Each sub layout height is adapting with the parent (device height) we divide the screen by seven (nbr of day in week)
         view.getLayoutParams().height = parent.getHeight() / 7;
 
         return new MoodAdapter.ViewHolder(view);

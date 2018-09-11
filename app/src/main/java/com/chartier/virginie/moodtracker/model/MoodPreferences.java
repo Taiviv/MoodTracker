@@ -16,13 +16,13 @@ import static android.content.Context.MODE_PRIVATE;
  */
 public class MoodPreferences {
 
-    //Constants for shared preferences
+    // Constants for shared preferences
     public static final String SHARED_PREFERENCES = "SHARED_PREFERENCES";
     private static final String MOOD_DATA = "MOOD_DATA";
 
 
 
-    //This method allow to save array in shared preferences using Gson library
+    // This method allow to save array in shared preferences using Gson library
     public static void saveData(Context context, ArrayList<Mood> mMoods) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -33,7 +33,7 @@ public class MoodPreferences {
     }
 
 
-    //This method allow to load array from shared preferences using Gson library
+    // This method allow to load array from shared preferences using Gson library
     public static ArrayList<Mood> loadData(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES, MODE_PRIVATE);
         Gson gson = new Gson();

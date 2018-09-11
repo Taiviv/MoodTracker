@@ -13,10 +13,8 @@ import android.widget.Toast;
 import com.chartier.virginie.moodtracker.R;
 import com.chartier.virginie.moodtracker.model.Mood;
 import com.chartier.virginie.moodtracker.model.MoodData;
-import com.chartier.virginie.moodtracker.model.MoodPreferences;
 import com.chartier.virginie.moodtracker.view.MoodAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity implements MoodAdapter.OnItemClickListener {
@@ -30,22 +28,22 @@ public class HistoryActivity extends AppCompatActivity implements MoodAdapter.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
-        //First the activity load the data
+        // First the activity load the data
         this.mMoods = MoodData.weekListMood(this);
-        //Then we build the layout with the data stored before
+        // Then we build the layout with the data stored before
         buildRecyclerView();
     }
 
-    //This method make a toast custom
+    // This method make a toast custom
     private void toastMaker(String comment) {
 
-        //Second inflate the layout from XML and set text
+        // Second inflate the layout from XML and set text
         LayoutInflater inflater = getLayoutInflater();
         View layout = inflater.inflate(R.layout.toast_custom, (ViewGroup) findViewById(R.id.toast_custom_container));
         TextView toastText = layout.findViewById(R.id.text);
         toastText.setText(comment);
 
-        //Finally creation of the toast and set some properties
+        // Finally creation of the toast and set some properties
         Toast toast = new Toast(getApplicationContext());
         toast.setDuration(Toast.LENGTH_LONG);
         toast.setView(layout);

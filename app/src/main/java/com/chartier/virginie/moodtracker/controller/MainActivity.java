@@ -171,13 +171,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //Allow to add sound or music from raw folder in app by using MediaPlayer
+    // Allow to add sound or music from raw folder in app by using MediaPlayer
     private void getSound(int sound) {
         mp = MediaPlayer.create(this, sound);
         mp.start();
     }
 
-    //This method configure AlphaAnimation
+    // This method configure AlphaAnimation
     private void startAnimation(){
         this.anim = new AlphaAnimation(0.0f, 1.0f);
         anim.setDuration(500); // Blink management with this parameter
